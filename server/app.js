@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import {MessageRepository} from './message.js';
+import {v4 as uuidv4} from 'uuid';
 
 const messageRepository = new MessageRepository();
 
@@ -16,7 +17,8 @@ app.get('/', (req, res) => {
 
 app.post('/message', express.json(), (req, res) => {
   const {name, text} = req.body;
-  messageRepository.publishMessage({name, text, time: new Date()});
+  const message = {id: uuidv4(), name, text, time: new Date()};
+  messageRepository.publishMessage(message);
   res.send(req.body);
 });
 
@@ -32,7 +34,7 @@ app.get('/sse', (req, res) => {
   }, 60 * 1000);
 
   const subscriptionId = messageRepository.subscribe(message => {
-    res.write(`data:${message.text}\n\n`);
+    res.write(`data:${JSON.stringify(message)}\n\n`);
   });
 
   res.on('close', () => {
