@@ -42,18 +42,18 @@ function Chatroom(props) {
   }, [messages]);
 
   return (
-      <div className="bg-gray-800 h-screen w-screen flex flex-col px-3">
-        <div className="flex-none my-2">
-          <h1 className="text-white text-bold text-3xl">SSE chat demo</h1>
+      <div className="bg-blue-300 h-screen w-screen flex flex-col">
+        <div className="flex-none bg-white px-3 py-2 shadow">
+          <h1 className="text-bold text-2xl">SSE chat demo</h1>
         </div>
-        <div className="grow overflow-y-auto">
-          {messages.map(m => <ChatMessage key={m.id} name={m.name} text={m.text}/>)}
+        <div className="grow overflow-y-auto p-3">
+          {messages.map(m => <ChatMessage key={m.id} name={m.name} text={m.text} date={m.time}/>)}
           <div ref={lastMessageRef}/>
         </div>
-        <form className="flex-none flex items-center py-3" onSubmit={handleTextSubmitted}>
+        <form className="flex-none flex items-center p-3" onSubmit={handleTextSubmitted}>
           <Avatar className="w-10 h-10" name={username}/>
           <input type="text"
-                 className="ml-3 flex-auto "
+                 className="ml-2 flex-auto "
                  placeholder="Say something :) Press ENTER to send"
                  value={text}
                  onChange={e => setText(e.target.value)}
