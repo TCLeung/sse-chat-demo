@@ -16,7 +16,7 @@ function Login(props) {
   };
 
   return (
-      <div className="bg-gray-800 h-screen w-screen flex items-center justify-center">
+      <div className="bg-blue-300 h-screen w-screen flex items-center justify-center">
         <form className="w-full md:w-1/3 bg-white rounded-lg pt-6" onSubmit={handleFormSubmitted}>
           <h2 className="text-3xl font-bold text-center text-gray-700 mb-7">
             SSE chat demo
@@ -27,7 +27,7 @@ function Login(props) {
           <div className="px-12 pb-10">
             <input type="text"
                    className="w-full border rounded px-3 py-2 mb-3 text-gray-700 focus:outline-none"
-                   placeholder="Pick a nickname and enjoy"
+                   placeholder="Pick a nickname and join :)"
                    value={username}
                    onChange={handleInputChanged}
             />
