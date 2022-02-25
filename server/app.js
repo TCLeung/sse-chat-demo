@@ -23,6 +23,7 @@ app.post('/message', express.json(), (req, res) => {
 });
 
 app.get('/sse', (req, res) => {
+  // Set appropriate headers
   res.set('Cache-Control', 'no-cache');
   res.set('Content-Type', 'text/event-stream');
   res.set('Connection', 'keep-alive');
@@ -33,10 +34,12 @@ app.get('/sse', (req, res) => {
     res.write(':keep-alive\n\n');
   }, 60 * 1000);
 
+  // Subscribe to message store
   const subscriptionId = messageRepository.subscribe(message => {
     res.write(`data:${JSON.stringify(message)}\n\n`);
   });
 
+  // Handle connection closed
   res.on('close', () => {
     console.debug('Connection closed by client');
     clearInterval(intervalId);
